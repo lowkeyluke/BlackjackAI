@@ -24,7 +24,7 @@ for i in layer3error:
         weight1 = np.random.random((2, Y.__len__()))  # (# of arrays, # of items in each array)
         weight2 = np.random.random((Y.__len__(), 1))  # try (2*random) - 1
 
-        # train, use for loop 1000s of times.
+        # TRAIN, use for loop 1000s of times.
         number_of_training_iterations = 50000
         for iteration in range(number_of_training_iterations):
             layer1 = X  # input
