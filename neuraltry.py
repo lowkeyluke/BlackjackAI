@@ -6,13 +6,16 @@ def sigmoid(x, deriv=False):
         return x*(1-x)
     return 1/(1+np.exp(-x))
 
-# input data, X
-# player total, dealer upcard
+# input data, X. Data is replaceable
+# [player total, dealer upcard]
 X = np.array([[10,10],[20,5],[20,10],[5,5]])
+# a bigger array may need to be scaled:
+# X = X/np.amax(X, axis=0)
 
-# output data, Y
-# stand/hit (0/1)
+# output data, Y. Data is replaceable
+# [stand/hit] (0/1)
 Y = np.array([[1],[0],[0],[1]])
+# Y does not need to be scaled, already between 0-1
 
 layer3error = np.random.random_integers(1,1,Y.__len__())  # initialize array same size as Y, fill with 1's
 for i in layer3error:
