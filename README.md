@@ -16,7 +16,9 @@ and their respective methods.
 
 layer4.py is the driver file that runs the GUI and the game. 
 Printed on the command-line:
+
 -The neural net's training.
+
 -The neural net's prediction to hit or stand [0-1].
 The value is a measurement of the neural net's confidence to hit (draw a card).
 0 = 100% confidence to stand. 0% confidence to hit.
