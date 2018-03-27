@@ -21,6 +21,9 @@ Printed on the command-line:
 
 -The neural net's prediction to hit or stand [0-1].
 The value is a measurement of the neural net's confidence to hit (draw a card).
+
 0 = 100% confidence to stand. 0% confidence to hit.
+
 .5 = 50% confidence to stand. 50% confidence to hit.
+
 1 = 0% confidence to stand. 100% confidence to hit.
