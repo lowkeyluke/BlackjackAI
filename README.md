@@ -1,6 +1,8 @@
 # BlackjackAI
 Neural network that predicts how to win blackjack by:
+
 -Gathering data while you play
+
 -Retraining itself using this data in order to strengthen its predictions.
 
 Files needed: blackjack.py, layer4.py
