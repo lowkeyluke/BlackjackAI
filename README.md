@@ -5,11 +5,14 @@ Neural network that predicts how to win blackjack by:
 
 -Retraining itself using this data in order to strengthen its predictions.
 
+
 Files needed: blackjack.py, layer4.py
 (All other files are more or less test files.)
 
+
 blackjack.py contains all classes/objects (deck, card, player, dealer, etc.), 
 and their respective methods.
+
 
 layer4.py is the driver file that runs the GUI and the game. 
 Printed on the command-line:
