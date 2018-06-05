@@ -13,7 +13,7 @@ import numpy as np
 # Window
 window = Tk()  # instantiate
 window.title("lowkeyluke's BJ")
-window.geometry("300x300")  # size
+window.geometry("400x400")  # size
 
 # Menu Bar
 menu = Menu()
@@ -100,9 +100,9 @@ while player1.chips > 0:
     for i in layer4error:
         while abs(layer4error[i]) > .5:  # if any error is greater than .5, re-initialize & re-train
             # initialize weights
-            weight1 = np.random.random((2, Y.__len__()))  # (# of arrays, # of items in each array)
-            weight2 = np.random.random((Y.__len__(), Y.__len__()))
-            weight3 = np.random.random((Y.__len__(), 1))  # try (2*random) - 1
+            weight1 = np.random.random((2, 4))  # (# of arrays, # of items in each array)
+            weight2 = np.random.random((4, 4))
+            weight3 = np.random.random((4, 1))  # try (2*random) - 1
 
             # TRAIN, use for loop 1000s of times.
             number_of_training_iterations = 50000
