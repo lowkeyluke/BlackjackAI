@@ -54,7 +54,7 @@ dealer1 = Dealer("THE DEALER")
 
 '''Create input data array and output data array for Neural Network'''
 X = np.array(
-    [[10, 10], [20, 5], [20, 10], [5, 5]])
+    [[10, 10, 0], [20, 5, 0], [20, 10, 0], [5, 5, 0]])
 '''     [6, 2], [6, 6], [6, 7], [6, 10],
      [11, 2], [11, 6], [11, 7], [11, 10],
      [12, 2], [12, 6], [12, 7], [12, 10],
@@ -91,6 +91,7 @@ def hit():
 
 deck1.shuffle()
 discardpile = []
+deckcount = 0
 
 '''Play game'''
 while player1.chips > 0:
@@ -100,7 +101,7 @@ while player1.chips > 0:
     for i in layer4error:
         while abs(layer4error[i]) > .5:  # if any error is greater than .5, re-initialize & re-train
             # initialize weights
-            weight1 = np.random.random((2, 4))  # (# of arrays, # of items in each array)
+            weight1 = np.random.random((3, 4))  # (# of arrays, # of items in each array)
             weight2 = np.random.random((4, 4))
             weight3 = np.random.random((4, 1))  # try (2*random) - 1
 
@@ -121,6 +122,7 @@ while player1.chips > 0:
                 layer2change = layer2error * sigmoid(layer2, deriv=True)
 
                 # update weights
+                # multiply by learning rate?? a = .1 maybe
                 weight3 += layer3.T.dot(layer4change)  # layer2 * layer3change
                 weight2 += layer2.T.dot(layer3change)
                 weight1 += layer1.T.dot(layer2change)  # layer1 * layer2change
@@ -147,6 +149,8 @@ while player1.chips > 0:
         while len(discardpile) > 0:
             deck1.cards.append(discardpile.pop())
         deck1.shuffle()
+        player1.count = 0
+        dealer1.count = 0
         print("Deck has been SHUFFLED")
 
     hitted = False
@@ -166,6 +170,7 @@ while player1.chips > 0:
     dealer1.draw()
     player1.draw()
     dealer1.draw()
+    deckcount = player1.count + dealer1.count
 
     label2.configure(text="" + str(dealer1.name) + ": " + str(dealer1.hand[0].printCard()) + ": " + str(
         dealer1.hand[0].getcardValue()))
@@ -173,7 +178,7 @@ while player1.chips > 0:
     label4.configure(text="...")
 
     # append [player total, dealer upcard] to neural net array
-    P = np.append(P, [player1.handValue(), dealer1.hand[0].getcardValue()])
+    P = np.append(P, [player1.handValue(), dealer1.hand[0].getcardValue(), deckcount])
     # prediction
     layer1p = P
     layer2p = sigmoid(np.dot(layer1p, weight1))
@@ -193,6 +198,12 @@ while player1.chips > 0:
             print("Blackjack!")
             player1.collectPot(bj=True)
             continue
+
+    '''Append data to X'''
+    # X = np.append(X, [player1.handValue(), dealer1.hand[0].getcardValue()])  # X.append(P.pop())
+    X = np.resize(X, (X.__len__() + 1, 3))
+    X[X.__len__() - 1] = [player1.handValue(), dealer1.hand[0].getcardValue(), deckcount]
+    # print("X:", X)  # for testing
 
     while player1.handValue() <= 21:
         acecount = 0
@@ -273,10 +284,9 @@ while player1.chips > 0:
                 label4.configure(text="gg u lose")
                 player1.pot = 0
 
-        '''Append data'''
+        '''Append data to Y'''
         # if hit==true and collectPot==true, append 1. if hit==true and collectPot==false, append 0.
         # if hit==false and collectPot==true, append 0. if hit==false and collectPot==false, append 1.
-        # Y
         Y = np.resize(Y, (Y.__len__() + 1, 1))
         if hitted and win:
             # Y = np.append(Y, [1])
@@ -290,11 +300,6 @@ while player1.chips > 0:
         elif not hitted and not win:
             # Y = np.append(Y, [1])
             Y[Y.__len__() - 1] = [1]
-
-        # X
-        # X = np.append(X, P)  # X.append(P.pop())
-        X = np.resize(X, (Y.__len__(), 2))
-        X[Y.__len__() - 1] = [player1.handValue(), dealer1.hand[0].getcardValue()]
 
         break
 
