@@ -60,11 +60,21 @@ class Player(object):
         self.splithand = []
         self.chips = 1000
         self.pot = 0
+        self.count = 0
 
     def draw(self, split=False):
         if split:
-            return self.splithand.append(deck1.draw())
-        return self.hand.append(deck1.draw())
+            self.splithand.append(deck1.draw())
+            # count cards
+            card = self.hand[-1]
+            if card.value >= 10:
+                self.count += 1
+        else:
+            self.hand.append(deck1.draw())
+            # count cards
+            card = self.hand[-1]
+            if card.value >= 10:
+                self.count += 1
 
     def showHand(self, split=False):
         if split:
