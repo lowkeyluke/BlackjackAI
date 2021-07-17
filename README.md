@@ -1,30 +1,17 @@
 # BlackjackAI
-Neural network that predicts how to win blackjack by:
+Basic, 4-layer FCN implemented 'from scratch' (no dedicated NN library; only numpy) in order to demonstrate understanding of basic, fundamental concepts on NNs.
+Toy problem: Blackjack
 
--Gathering data while you play
+-'Online Training'; re-trains on new observations/data during 'live play'
 
--Retraining itself using this data in order to strengthen its predictions.
 #
-Files needed: blackjack.py, layer4.py
+Files needed: 
+- blackjack.py : contains all classes/objects (deck, card, player, dealer, etc.) & their respective methods
+- layer4.py : 'driver' file that runs the game & provides a GUI
+(All other files are more or less test files)
 
-(All other files are more or less test files.)
-#
-blackjack.py contains all classes/objects (deck, card, player, dealer, etc.), 
-
-and their respective methods.
-#
-layer4.py is the driver file that runs the GUI and the game. 
-
-Printed on the command-line:
-
--The neural net's training.
-
--The neural net's prediction to hit or stand [0-1].
-
-The value is a measurement of the neural net's confidence to hit (draw a card).
-
-0 = 100% confidence to stand. 0% confidence to hit.
-
-.5 = 50% confidence to stand. 50% confidence to hit.
-
-1 = 0% confidence to stand. 100% confidence to hit.
+Summary of command-line output:
+-training info
+-NN's output of whether to 'hit' or 'stand' [0-1]
+  - the value can be thought of as the NN's 'confidence' to hit, with 0.5 being the decision boundary between standing or hitting 
+(e.g. 0 = 100% confidence in standing, 0% confidence to hit. 0.5 = idfk?! 1 = 0% confidence to stand, 100% confidence in hitting)
